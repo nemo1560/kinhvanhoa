@@ -59,6 +59,7 @@ class HomeController extends BaseController
 
   Future<void> getListFileFromAssetsFolder() async {
     lstBook.clear();
+    showEasyLoading();
     final manifestJson = await DefaultAssetBundle.of(Get.context!)
         .loadString('AssetManifest.json');
     List books = json
@@ -88,6 +89,7 @@ class HomeController extends BaseController
       }
     }
     lstBook.refresh();
+    hideEasyLoading();
   }
 
   Future<void> startView(BookInfo book) async {

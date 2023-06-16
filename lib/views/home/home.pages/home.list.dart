@@ -115,7 +115,7 @@ class HomeList extends GetView<HomeController> {
                             ),
                           ),),
                           Visibility(visible: book.haveBookMark, child: Positioned(
-                            right: -5,
+                            right: 0,
                             top: 0,
                             child: Icon(Icons.bookmark_add_rounded,size: 20,color: Colors.red,),
                           ))

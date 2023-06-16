@@ -30,11 +30,11 @@ class Home extends GetView<HomeController> {
         actions: <Widget>[
           GFIconButton(
             icon: Icon(
-              Icons.info,
+              Icons.search_outlined,
               color: Colors.white,
             ),
             onPressed: () {
-              controller.alert(content: 'Nemo1560');
+
             },
             type: GFButtonType.transparent,
           ),

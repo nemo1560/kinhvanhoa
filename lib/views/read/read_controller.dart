@@ -13,11 +13,12 @@ class ReadController extends BaseController{
   late BookInfo book;
   final Completer<PDFViewController> completePdfViewController = Completer<PDFViewController>();
   RxString path = ''.obs;
-  RxInt page = 1.obs;
+  RxInt page = 0.obs;
   RxInt totalPage = 0.obs;
   RxBool darkMode = false.obs;
   RxBool bookMark = false.obs;
-  RxInt pageBooked = 1.obs;
+  RxInt showPage = 0.obs;
+  RxInt showTotalPage = 0.obs;
   late PDFViewController pdfViewController;
 
   @override
@@ -27,17 +28,14 @@ class ReadController extends BaseController{
     if(Get.arguments[1] != null){
       darkMode.value = true;
     }
-    if(Get.arguments[2] != null){
-      int? pageBookMark = bookMarkStorage.read('chapter_'+book.chapter.toString());
-      if(pageBookMark != null){
-        pageBooked.value = pageBookMark;
-        page.value = pageBooked.value;
-      }else{
-        pageBooked.value = Get.arguments[2];
-        page.value = Get.arguments[2];
-      }
-    }
+    page.value = Get.arguments[2];
     super.onInit();
+  }
+
+  @override
+  void dispose() {
+    page.value = 0;
+    super.dispose();
   }
 
   void initBookMark(){
@@ -50,14 +48,15 @@ class ReadController extends BaseController{
   }
 
   createBookMark({required int page, required int index}){
-    bookMarkStorage.write('chapter_'+index.toString(), page);
+    int pageSave = page;
+    bookMarkStorage.write('chapter_'+index.toString(), pageSave);
     toastAlert(content: "Đã bookmark");
     initBookMark();
   }
 
   toPageBooked(){
     int? pageBookMark = bookMarkStorage.read('chapter_'+book.chapter.toString());
-    pageBooked.value = pageBookMark!;
+    page.value = pageBookMark!;
     bookMarkStorage.remove('chapter_'+book.chapter.toString());
     initBookMark();
     rebuildAllChildren(Get.context!);
@@ -84,5 +83,24 @@ class ReadController extends BaseController{
   Future<void> getInfoTotalPage() async {
     totalPage.value = (await pdfViewController.getPageCount())!;
     page.value = (await pdfViewController.getCurrentPage())!;
+  }
+
+  void showCountPage(int? page, int? total) {
+    this.page.value = page!;
+    this.totalPage.value = total!;
+    this.showPage.value = page!+1;
+    this.showTotalPage.value = total!+1;
+  }
+
+  void toPage() {
+    confirm2Custom(content: Container(
+      width: 100,
+      height: 50,
+      child: Text('Feature coding...'),
+    ), functionOk: (){
+      Get.back();
+    },functionCancel: (){
+
+    });
   }
 }

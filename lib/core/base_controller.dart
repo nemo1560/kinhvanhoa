@@ -63,6 +63,10 @@ class BaseController extends GetxController{
     backPressed();
   }
 
+  Future<void> dismissDialog() async {
+    Get.back();
+  }
+
   tooltipCustom({required Widget content}) async {
     Get.defaultDialog(
       contentPadding: EdgeInsets.all(2),
@@ -101,6 +105,9 @@ class BaseController extends GetxController{
     Get.defaultDialog(
       title: "Thông báo",
       barrierDismissible: false,
+      onWillPop: () async {
+        return false;
+      },
       titlePadding: EdgeInsets.only(top: 20),
       content: Padding(padding: EdgeInsets.all(10), child: Text(content)),
       textCancel: "Cancel",
@@ -109,15 +116,11 @@ class BaseController extends GetxController{
     );
   }
 
-  confirmCustom(
-      {String title = "Thông báo",
-        required Widget content,
-        required Function() functionOk,
-        required Function() functionCancel}) async {
+  confirm2Custom(
+      {required Widget content, Function()? functionCancel, required Function()? functionOk}) async {
     Get.defaultDialog(
-      title: title,
+      title: "Thông báo",
       titlePadding: EdgeInsets.only(top: 20),
-      barrierDismissible: false,
       content: content ??
           Padding(
             padding: EdgeInsets.all(10),
@@ -128,8 +131,29 @@ class BaseController extends GetxController{
           ),
       textCancel: "Cancel",
       textConfirm: "Ok",
+      barrierDismissible: false,
       onConfirm: functionOk,
-      onCancel: functionCancel,
+      onCancel: functionCancel ??
+              () {
+            Get.back();
+          },
+    );
+  }
+
+  alertCustom({required Widget content,bool barrierDismissible = false, String title = "Thông báo", String? textCancel}) async {
+    Get.defaultDialog(
+      title: title,
+      barrierDismissible: barrierDismissible,
+      titlePadding: const EdgeInsets.only(top: 20),
+      content: content ??
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: Text(
+              "Not found widget !",
+              style: TextStyle(color: Colors.red.shade500),
+            ),
+          ),
+      textCancel: textCancel,
     );
   }
 

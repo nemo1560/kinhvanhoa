@@ -14,7 +14,7 @@ import 'package:getwidget/types/gf_button_type.dart';
 class Read extends GetWidget<ReadController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(child: Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: GFAppBar(
         backgroundColor: GFColors.SUCCESS,
@@ -32,7 +32,7 @@ class Read extends GetWidget<ReadController> {
           child: Text(
             controller.book.nameBook ?? '',
             softWrap: false,
-            style: controller.customStyle(fontSize: 10, color: Colors.white),
+            style: controller.defaultStyle(fontSize: 16, color: Colors.white),
           ),
         ),
         centerTitle: true,
@@ -50,7 +50,7 @@ class Read extends GetWidget<ReadController> {
         ],
       ),
       body: body(context),
-    );
+    ),onWillPop: controller.backPressed,);
   }
 
   Widget body(BuildContext context) {
@@ -64,14 +64,14 @@ class Read extends GetWidget<ReadController> {
             child: Obx(() => PDFView(
               filePath: controller.book.path,
               enableSwipe: true,
-              swipeHorizontal: true,
+              swipeHorizontal: false,
               autoSpacing: false,
               pageFling: true,
               pageSnap: true,
               fitEachPage: true,
               nightMode: controller.darkMode.value,
-              defaultPage: controller.pageBooked.value,
-              fitPolicy: FitPolicy.WIDTH,
+              defaultPage: controller.page.value,
+              fitPolicy: FitPolicy.BOTH,
               preventLinkNavigation: false,
               // if set to true the link is handled in flutter
               onError: (error) {
@@ -91,8 +91,7 @@ class Read extends GetWidget<ReadController> {
                 if(!Get.isRegistered<ReadController>()){
                   Get.lazyPut(() => ReadController());
                 }
-                controller.page.value = page!;
-                controller.totalPage.value = total!;
+                controller.showCountPage(page,total);
               },
             ),
           )),
@@ -112,7 +111,7 @@ class Read extends GetWidget<ReadController> {
                 children: [
                   Align(
                       alignment: Alignment.centerLeft,
-                      child: Padding(padding: EdgeInsets.only(left: 10),child: InkWell(
+                      child: Padding(padding: EdgeInsets.only(left: 15),child: InkWell(
                         child: Obx(() => Icon(
                           controller.bookMark.value ? Icons.bookmark : null,
                           size: 20,
@@ -130,16 +129,18 @@ class Read extends GetWidget<ReadController> {
                     alignment: Alignment.center,
                     child: Obx(
                       () => Center(
-                          child: Text(
-                        '${controller.page}/${controller.totalPage}',
-                        style: controller.customStyle(
-                            fontSize: 15, color: Colors.white),
-                      )),
+                          child: InkWell(child: Text(
+                            '${controller.showPage.value}/${controller.showTotalPage.value}',
+                            style: controller.customStyle(
+                                fontSize: 15, color: Colors.white),
+                          ),onTap: (){
+                            controller.toPage();
+                          }),),
                     ),
                   ),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Padding(padding: EdgeInsets.only(right: 10),child: InkWell(
+                    child: Padding(padding: EdgeInsets.only(right: 15),child: InkWell(
                       child: Obx(() => Icon(
                         controller.darkMode.value ? Icons.dark_mode : Icons.light_mode,
                         size: 20,
