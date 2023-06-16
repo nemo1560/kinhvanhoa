@@ -2,12 +2,13 @@ import 'package:book/core/route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:getwidget/components/toast/gf_toast.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BaseController extends GetxController{
-
+  GetStorage bookMarkStorage = GetStorage();
   final iconList = <IconData>[
     Icons.book_online_rounded,
     Icons.history,
@@ -16,6 +17,7 @@ class BaseController extends GetxController{
 
   @override
   void onInit() {
+
     super.onInit();
   }
 
@@ -141,8 +143,15 @@ class BaseController extends GetxController{
     );
   }
 
-  void toastAlert({required String content}){
-    GFToast.showToast(content, Get.context!,toastBorderRadius: 10,toastPosition: GFToastPosition.BOTTOM);
+  TextStyle defaultStyle({double fontSize = 12.0, required Color color, int bold = 0}){
+    return TextStyle(
+      fontSize: fontSize,
+      color: color,
+      fontWeight: bold == 0 ? FontWeight.normal : FontWeight.bold,
+    );
   }
 
+  void toastAlert({required String content}){
+    GFToast.showToast(content, Get.context!,toastBorderRadius: 10.0,toastPosition: GFToastPosition.BOTTOM);
+  }
 }

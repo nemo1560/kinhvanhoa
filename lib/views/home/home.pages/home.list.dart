@@ -30,30 +30,104 @@ class HomeList extends GetView<HomeController> {
   Widget itemBook(
       {required int index, required int length, required BookInfo book}) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: InkWell(child: GFBorder(
-        radius: Radius.circular(10),
-        color: Colors.greenAccent.shade700,
-        dashedLine: [2, 0],
-        type: GFBorderType.rRect,
-        padding: EdgeInsets.all(5),
-        child: Container(
-          height: 100,
-          width: Utility.size.width,
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-              color: Colors.greenAccent.shade100,
-              borderRadius: BorderRadius.all(Radius.circular(10))),
-          child: Column(
-            children: [
-              Expanded(flex: 1,child: Center(),),
-              Expanded(flex: 9,child: Text(book.nameBook!),),
-            ],
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: InkWell(
+          child: GFBorder(
+            radius: Radius.circular(10),
+            color: Colors.greenAccent.shade700,
+            dashedLine: [2, 0],
+            type: GFBorderType.rRect,
+            padding: EdgeInsets.all(5),
+            child: Container(
+                height: 80,
+                width: Utility.size.width,
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    color: Colors.lightGreenAccent.withOpacity(0.1),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                                child: Text(
+                              'Tập truyện',
+                              style: controller.defaultStyle(
+                                  fontSize: 10, color: Colors.black, bold: 1),
+                            )),
+                            Expanded(
+                                child: Text(
+                              'Tác giả',
+                              style: controller.defaultStyle(
+                                  fontSize: 10, color: Colors.black, bold: 1),
+                            )),
+                            Expanded(
+                                child: Text(
+                              'Tập',
+                              style: controller.defaultStyle(
+                                  fontSize: 10, color: Colors.black, bold: 1),
+                            )),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                                child: Text(
+                              book.nameBook ?? '',
+                              softWrap: true,
+                              style:
+                                  controller.defaultStyle(color: Colors.black),
+                            )),
+                            Expanded(
+                                child: Text(
+                              book.actor ?? '',
+                              style:
+                                  controller.defaultStyle(color: Colors.black),
+                            )),
+                            Expanded(
+                                child: Text(
+                              book.chapter.toString() ?? '',
+                              style:
+                                  controller.defaultStyle(color: Colors.black),
+                            )),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Stack(children: [
+                          Align(alignment: Alignment.center,child: Center(
+                            child: Icon(
+                              Icons.auto_stories_rounded,
+                              size: 40,
+                              color: Colors.lightGreenAccent.shade700,
+                            ),
+                          ),),
+                          Visibility(visible: book.haveBookMark, child: Positioned(
+                            right: -5,
+                            top: 0,
+                            child: Icon(Icons.bookmark_add_rounded,size: 20,color: Colors.red,),
+                          ))
+                        ],)
+                      ),
+                    ],
+                  ),
+                )),
           ),
-        ),
-      ),onTap: (){
-        controller.startView(book);
-      },
-    ));
+          onTap: () {
+            controller.startView(book);
+          },
+        ));
   }
 }

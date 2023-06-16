@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:book/core/base_controller.dart';
 import 'package:book/core/route_name.dart';
@@ -29,8 +30,8 @@ class HomeController extends BaseController
   void onInit() {
     lstPage.add(TabItem(
         title: StringName.homeList,
-        icon: Icons.store,
-        activeIcon: Icons.store,
+        icon: Icons.menu_book,
+        activeIcon: Icons.menu_book,
         isIconBlend: true));
     lstPage.add(TabItem(
         title: StringName.info,
@@ -69,14 +70,20 @@ class HomeController extends BaseController
     if(books.isNotEmpty){
       int index = 0;
       while(index <= books.length){
-        int id = index;
-        BookInfo book = BookInfo(
-            nameBook: books[index].replaceAll('assets/books/','').replaceAll('.pdf', '').toString(),
-            actor: 'Nguyễn Nhật Ánh',
-            id: ++id,
-            path: books[index],
-            iconId: 0xe0ef);
-        lstBook.add(book);
+        try{
+          int id = index;
+          BookInfo book = BookInfo(
+              nameBook: books[index].replaceAll('assets/books/','').replaceAll('kinh_van_hoa_','').replaceAll('__nguyen_nhat_anh','').replaceAll('.pdf', '').toString(),
+              actor: 'Nguyễn Nhật Ánh',
+              chapter: ++id,
+              path: books[index],
+              iconId: 0xe0ef);
+          int page = bookMarkStorage.read('chapter_'+book.chapter.toString());
+          book.haveBookMark = book.getBookMark(page);
+          lstBook.add(book);
+        }catch(e){
+          print('error: '!+e.toString());
+        }
         index++;
       }
     }

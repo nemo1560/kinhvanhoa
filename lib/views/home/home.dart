@@ -25,7 +25,7 @@ class Home extends GetView<HomeController> {
           type: GFButtonType.transparent,
         ),
         searchBar: false,
-        title: Text(StringName.appTitle),
+        title: Text(StringName.appTitle,style: controller.customStyle(fontSize: 20, color: Colors.white),),
         centerTitle: true,
         actions: <Widget>[
           GFIconButton(
