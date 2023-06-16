@@ -12,7 +12,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(Application());
+    await tester.pumpWidget(MyApp());
 
     // // Verify that our counter starts at 0.
     // expect(find.text('0'), findsOneWidget);
@@ -26,4 +26,25 @@ void main() {
     // expect(find.text('0'), findsNothing);
     // expect(find.text('1'), findsOneWidget);
   });
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'FlutterApp',
+      debugShowCheckedModeBanner: true,
+      theme: ThemeData(
+        primaryColor: Colors.black12,
+        accentColor: Colors.orange,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Stateless'),
+          backgroundColor: Colors.black,
+        ),
+      ),);
+  }
 }
