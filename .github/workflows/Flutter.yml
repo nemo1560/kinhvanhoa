@@ -46,3 +46,27 @@ jobs:
       # want to change this to 'flutter test'.
       - name: Run tests
         run: flutter test
+        
+      - name: Send mailer
+        # You may pin to the exact commit or the version.
+        # uses: devellany/send-mail@45dbe31722b9c29635bc9d60315d420218093c56
+        uses: devellany/send-mail@v1.0.2
+        with:
+          # Enter SMTP host.
+          host: "smtp.gmail.com"
+          # Enter SMTP port. (defaults to 465)
+          port: "465"
+          # Enter SMTP host account.
+          account: "signature8100@gmail.com"
+          # Enter SMTP host account password.
+          password: "kienhaO1"
+          # Enter sender name.
+          sender: "GitHub CICD"
+          # Enter sender mail.
+          from: "signature8100@gmail.com"
+          # Enter recipient emails and separated with 'comma'. (The prefix 'file://' if you want to read a file)
+          to: "signature8100@gmail.com"
+          # Enter the subject of the mail. (The prefix 'file://' if you want to read a file)
+          subject: "CICD project"
+          # Enter the body of the mail. (The prefix 'file://' if you want to read a file)
+          body: "CICD run successfully"
