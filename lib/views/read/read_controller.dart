@@ -72,11 +72,17 @@ class ReadController extends BaseController{
   }
 
   rebuildAllChildren(BuildContext context) {
-    this.onDelete();
+    //this.onDelete();
     if(darkMode.value){
-      Get.offAndToNamed(RouteName.viewPage,arguments: [book,true,page.value]);
+      backPressed();
+      Future.delayed(Duration(milliseconds: 500),(){
+        Get.toNamed(RouteName.viewPage,arguments: [book,true,page.value]);
+      });
     }else{
-      Get.offAndToNamed(RouteName.viewPage,arguments: [book,null,page.value]);
+      backPressed();
+      Future.delayed(Duration(milliseconds: 500),(){
+        Get.offAndToNamed(RouteName.viewPage,arguments: [book,null,page.value]);
+      });
     }
   }
 

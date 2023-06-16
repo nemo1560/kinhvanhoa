@@ -50,7 +50,10 @@ class Read extends GetWidget<ReadController> {
         ],
       ),
       body: body(context),
-    ),onWillPop: controller.backPressed,);
+    ),onWillPop: () async {
+      Get.back(result: "result");
+      return false;
+    },);
   }
 
   Widget body(BuildContext context) {
@@ -111,7 +114,7 @@ class Read extends GetWidget<ReadController> {
                 children: [
                   Align(
                       alignment: Alignment.centerLeft,
-                      child: Padding(padding: EdgeInsets.only(left: 15),child: InkWell(
+                      child: Padding(padding: EdgeInsets.only(left: 25),child: InkWell(
                         child: Obx(() => Icon(
                           controller.bookMark.value ? Icons.bookmark : null,
                           size: 20,
@@ -140,7 +143,7 @@ class Read extends GetWidget<ReadController> {
                   ),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Padding(padding: EdgeInsets.only(right: 15),child: InkWell(
+                    child: Padding(padding: EdgeInsets.only(right: 25),child: InkWell(
                       child: Obx(() => Icon(
                         controller.darkMode.value ? Icons.dark_mode : Icons.light_mode,
                         size: 20,

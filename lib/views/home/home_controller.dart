@@ -98,7 +98,9 @@ class HomeController extends BaseController
       hideEasyLoading();
       if(value.path.isNotEmpty){
         book.path = value.path;
-        Get.toNamed(RouteName.viewPage,arguments: [book],preventDuplicates: false)?.then((value) => getListFileFromAssetsFolder());
+        Get.toNamed(RouteName.bookInfo,arguments: [book,null,0] )?.then((value){
+          getListFileFromAssetsFolder();
+        });
       }
     });
   }
