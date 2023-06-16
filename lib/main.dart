@@ -1,5 +1,7 @@
+//@dart=2.11
 import 'package:flutter/material.dart';
-import 'package:kinhvanhoa/application.dart';
+
+import 'application.dart';
 
 void main() {
   runApp(Application());
