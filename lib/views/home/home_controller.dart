@@ -1,26 +1,23 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
-import 'dart:math';
 
 import 'package:book/core/base_controller.dart';
 import 'package:book/core/route_name.dart';
 import 'package:book/core/string_name.dart';
 import 'package:book/entities/book_info.dart';
+import 'package:book/views/home/home.components/home.list.search.component.dart';
+import 'package:book/views/home/home.interface/home.interface.dart';
 import 'package:book/views/home/home.pages/home.info.dart';
 import 'package:book/views/home/home.pages/home.list.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_ticket_provider_mixin.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:path_provider/path_provider.dart';
 
-class HomeController extends BaseController
-    with GetSingleTickerProviderStateMixin {
+class HomeController extends BaseController 
+    with GetSingleTickerProviderStateMixin, HomeCallBack {
   List<Widget> pages = List.empty(growable: true);
   List<TabItem> lstPage = List.empty(growable: true);
   RxList<BookInfo> lstBook = RxList.empty(growable: true);
@@ -78,6 +75,7 @@ class HomeController extends BaseController
               actor: 'Nguyễn Nhật Ánh',
               chapter: ++id,
               path: books[index],
+              assetsFile: books[index],
               iconId: 0xe0ef);
           int page = bookMarkStorage.read('chapter_'+book.chapter.toString());
           book.haveBookMark = book.getBookMark(page);
@@ -92,31 +90,23 @@ class HomeController extends BaseController
     hideEasyLoading();
   }
 
-  Future<void> startView(BookInfo book) async {
-    showEasyLoading();
-    await fromAsset(book.path!,book.nameBook!+'.pdf').then((value){
-      hideEasyLoading();
-      if(value.path.isNotEmpty){
-        book.path = value.path;
-        Get.toNamed(RouteName.bookInfo,arguments: [book,null,0] )?.then((value){
-          getListFileFromAssetsFolder();
-        });
-      }
+  Future<void> selectedBook(BookInfo book) async {
+    Get.toNamed(RouteName.bookInfo,arguments: [book,null,0] )?.then((value){
+      getListFileFromAssetsFolder();
     });
   }
 
-  Future<File> fromAsset(String asset, String filename) async {
-    Completer<File> completer = Completer();
-    try {
-      var dir = await getExternalStorageDirectory();
-      File file = File("${dir?.path}/$filename");
-      var data = await rootBundle.load(asset);
-      var bytes = data.buffer.asUint8List();
-      await file.writeAsBytes(bytes, flush: true);
-      completer.complete(file);
-    } catch (e) {
-      toastAlert(content: e.toString());
-    }
-    return completer.future;
+  @override
+  void searchCallBack(String search) {
+    // TODO: implement searchCallBack
   }
+
+  void searchWidget() {
+    if(heightWidgetSearch.value == 0.0){
+      heightWidgetSearch.value = 100.0;
+    }else{
+      heightWidgetSearch.value = 0.0;
+    }
+  }
+  
 }

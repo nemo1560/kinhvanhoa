@@ -114,7 +114,7 @@ class Read extends GetWidget<ReadController> {
                 children: [
                   Align(
                       alignment: Alignment.centerLeft,
-                      child: Padding(padding: EdgeInsets.only(left: 25),child: InkWell(
+                      child: Container(width: 40,height: 40, padding: EdgeInsets.only(left: 25),child: InkWell(
                         child: Obx(() => Icon(
                           controller.bookMark.value ? Icons.bookmark : null,
                           size: 20,
@@ -143,7 +143,7 @@ class Read extends GetWidget<ReadController> {
                   ),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Padding(padding: EdgeInsets.only(right: 25),child: InkWell(
+                    child: Container(width: 40,height: 40, padding: EdgeInsets.only(right: 25),child: InkWell(
                       child: Obx(() => Icon(
                         controller.darkMode.value ? Icons.dark_mode : Icons.light_mode,
                         size: 20,

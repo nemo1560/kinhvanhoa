@@ -34,7 +34,7 @@ class Home extends GetView<HomeController> {
               color: Colors.white,
             ),
             onPressed: () {
-
+              controller.searchWidget();
             },
             type: GFButtonType.transparent,
           ),

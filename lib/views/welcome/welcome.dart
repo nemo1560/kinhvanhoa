@@ -1,3 +1,4 @@
+import 'package:book/core/string_name.dart';
 import 'package:book/core/uitility.dart';
 import 'package:book/views/welcome/welcome_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,11 +30,15 @@ class Welcome extends GetView<WelcomeController> {
           Align(
             alignment: Alignment.center,
             child: Text(
-              'Books',
+              StringName.appTitle,
               style: controller.customStyle(
                   fontSize: GFSize.LARGE, color: GFColors.FOCUS, bold: 1),
             ),
-          )
+          ),
+          Padding(padding: EdgeInsets.only(right: 20),child: Align(
+            alignment: Alignment.bottomRight,
+            child: Text(StringName.developInfo,style: controller.customStyle(fontSize: 14, color: Colors.black),),
+          ),)
         ],
       ),
     );

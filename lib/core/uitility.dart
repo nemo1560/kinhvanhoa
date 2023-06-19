@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Utility{
   static late Size size;
+  static String urlImage = 'https://isach.info/images/story/cover/kinh_van_hoa_';
 
   static ThemeData darkTheme = ThemeData(
       accentColor: Colors.red,

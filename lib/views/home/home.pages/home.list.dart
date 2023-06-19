@@ -1,4 +1,6 @@
+import 'package:book/core/string_name.dart';
 import 'package:book/entities/book_info.dart';
+import 'package:book/views/home/home.components/home.list.search.component.dart';
 import 'package:book/views/home/home_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,15 +17,25 @@ class HomeList extends GetView<HomeController> {
     return Container(
       width: Utility.size.width,
       height: Utility.size.height,
-      child: Obx(() => ListView.builder(
-            itemCount: controller.lstBook.length,
-            itemBuilder: (buildContext, index) {
-              return itemBook(
-                  index: index,
-                  length: controller.lstBook.length,
-                  book: controller.lstBook[index]);
-            },
-          )),
+      child: Column(
+        children: [
+          Obx(() => SearchComponent(
+                controller: controller,
+                callBack: controller,
+                height: controller.heightWidgetSearch.value,
+              )),
+          Obx(() => Expanded(
+                  child: ListView.builder(
+                itemCount: controller.lstBook.length,
+                itemBuilder: (buildContext, index) {
+                  return itemBook(
+                      index: index,
+                      length: controller.lstBook.length,
+                      book: controller.lstBook[index]);
+                },
+              )))
+        ],
+      ),
     );
   }
 
@@ -37,13 +49,19 @@ class HomeList extends GetView<HomeController> {
             color: Colors.greenAccent.shade700,
             dashedLine: [2, 0],
             type: GFBorderType.rRect,
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(0),
             child: Container(
                 height: 80,
                 width: Utility.size.width,
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                    color: Colors.lightGreenAccent.withOpacity(0.1),
+                    color: Colors.yellow.shade100,
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                          color: Colors.grey.shade400,
+                          blurRadius: 5.0,
+                          offset: Offset(1.0, 1.5))
+                    ],
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
@@ -57,21 +75,21 @@ class HomeList extends GetView<HomeController> {
                           children: [
                             Expanded(
                                 child: Text(
-                              'Tập truyện',
+                              StringName.bookName,
                               style: controller.defaultStyle(
-                                  fontSize: 10, color: Colors.black, bold: 1),
+                                  fontSize: 14, color: Colors.black, bold: 1),
                             )),
                             Expanded(
                                 child: Text(
-                              'Tác giả',
+                              StringName.author,
                               style: controller.defaultStyle(
-                                  fontSize: 10, color: Colors.black, bold: 1),
+                                  fontSize: 14, color: Colors.black, bold: 1),
                             )),
                             Expanded(
                                 child: Text(
-                              'Tập',
+                              StringName.chapter,
                               style: controller.defaultStyle(
-                                  fontSize: 10, color: Colors.black, bold: 1),
+                                  fontSize: 14, color: Colors.black, bold: 1),
                             )),
                           ],
                         ),
@@ -105,28 +123,38 @@ class HomeList extends GetView<HomeController> {
                         ),
                       ),
                       Expanded(
-                        flex: 2,
-                        child: Stack(children: [
-                          Align(alignment: Alignment.center,child: Center(
-                            child: Icon(
-                              Icons.auto_stories_rounded,
-                              size: 40,
-                              color: Colors.lightGreenAccent.shade700,
-                            ),
-                          ),),
-                          Visibility(visible: book.haveBookMark, child: Positioned(
-                            right: 0,
-                            top: 0,
-                            child: Icon(Icons.bookmark_add_rounded,size: 20,color: Colors.red,),
-                          ))
-                        ],)
-                      ),
+                          flex: 2,
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: Center(
+                                  child: Icon(
+                                    Icons.auto_stories_rounded,
+                                    size: 40,
+                                    color: Colors.lightGreenAccent.shade700,
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                  visible: book.haveBookMark,
+                                  child: Positioned(
+                                    right: 0,
+                                    top: 0,
+                                    child: Icon(
+                                      Icons.bookmark_add_rounded,
+                                      size: 20,
+                                      color: Colors.red,
+                                    ),
+                                  ))
+                            ],
+                          )),
                     ],
                   ),
                 )),
           ),
           onTap: () {
-            controller.startView(book);
+            controller.selectedBook(book);
           },
         ));
   }

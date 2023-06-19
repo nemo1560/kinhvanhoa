@@ -15,6 +15,8 @@ class BaseController extends GetxController{
     Icons.info,
   ];
 
+  RxDouble heightWidgetSearch = 0.0.obs;
+
   @override
   void onInit() {
 
@@ -167,7 +169,7 @@ class BaseController extends GetxController{
     );
   }
 
-  TextStyle defaultStyle({double fontSize = 12.0, required Color color, int bold = 0}){
+  TextStyle defaultStyle({double fontSize = 14.0, required Color color, int bold = 0}){
     return TextStyle(
       fontSize: fontSize,
       color: color,

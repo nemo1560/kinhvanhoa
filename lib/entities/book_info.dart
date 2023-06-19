@@ -7,8 +7,9 @@ class BookInfo {
   int? iconId;
   int? chapter;
   bool haveBookMark;
+  String? assetsFile;
 
-  BookInfo({required this.nameBook, required this.actor, required this.iconId,required this.path,required this.chapter, this.haveBookMark = false});
+  BookInfo({required this.nameBook, required this.actor, required this.iconId,required this.path,required this.chapter, this.haveBookMark = false, required this.assetsFile});
 
   bool getBookMark(int? page) {
     if(page != null && page > -1){
