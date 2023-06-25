@@ -17,6 +17,8 @@ class BaseController extends GetxController{
 
   RxDouble heightWidgetSearch = 0.0.obs;
 
+  FocusNode focusNode = FocusNode();
+
   @override
   void onInit() {
 

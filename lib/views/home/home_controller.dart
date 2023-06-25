@@ -35,6 +35,7 @@ class HomeController extends BaseController
         icon: Icons.phone,
         activeIcon: Icons.phone,
         isIconBlend: true));
+
     pages.add(HomeList());
     pages.add(HomeInfo());
     tabController = TabController(length: pages.length, vsync: this);
@@ -104,8 +105,10 @@ class HomeController extends BaseController
   void searchWidget() {
     if(heightWidgetSearch.value == 0.0){
       heightWidgetSearch.value = 100.0;
+      FocusScope.of(Get.context!).requestFocus(focusNode);
     }else{
       heightWidgetSearch.value = 0.0;
+      focusNode.unfocus();
     }
   }
   

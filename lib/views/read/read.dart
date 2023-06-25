@@ -67,7 +67,7 @@ class Read extends GetWidget<ReadController> {
             child: Obx(() => PDFView(
               filePath: controller.book.path,
               enableSwipe: true,
-              swipeHorizontal: false,
+              swipeHorizontal: true,
               autoSpacing: false,
               pageFling: true,
               pageSnap: true,

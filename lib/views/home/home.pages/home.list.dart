@@ -19,11 +19,11 @@ class HomeList extends GetView<HomeController> {
       height: Utility.size.height,
       child: Column(
         children: [
-          Obx(() => SearchComponent(
+          Obx(() => Visibility(child: SearchComponent(
                 controller: controller,
                 callBack: controller,
                 height: controller.heightWidgetSearch.value,
-              )),
+              ),visible: controller.heightWidgetSearch.value > 0.0,)),
           Obx(() => Expanded(
                   child: ListView.builder(
                 itemCount: controller.lstBook.length,
