@@ -15,12 +15,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_ticket_provider_mixin.dart';
+import 'package:getwidget/components/toast/gf_toast.dart';
+import 'package:getwidget/getwidget.dart';
 
 class HomeController extends BaseController 
     with GetSingleTickerProviderStateMixin, HomeCallBack {
   List<Widget> pages = List.empty(growable: true);
   List<TabItem> lstPage = List.empty(growable: true);
   RxList<BookInfo> lstBook = RxList.empty(growable: true);
+  RxList<BookInfo> lstBookFilter = RxList.empty(growable: true);
   late TabController tabController;
 
   @override
@@ -57,6 +60,7 @@ class HomeController extends BaseController
 
   Future<void> getListFileFromAssetsFolder() async {
     lstBook.clear();
+    lstBookFilter.clear();
     showEasyLoading();
     final manifestJson = await DefaultAssetBundle.of(Get.context!)
         .loadString('AssetManifest.json');
@@ -87,6 +91,7 @@ class HomeController extends BaseController
         index++;
       }
     }
+    lstBookFilter.addAll(lstBook);
     lstBook.refresh();
     hideEasyLoading();
   }
@@ -99,12 +104,14 @@ class HomeController extends BaseController
 
   @override
   void searchCallBack(String search) {
-    // TODO: implement searchCallBack
+    lstBookFilter.clear();
+    lstBookFilter.addAll(lstBook.where((e) => e.nameBook!.replaceAll('_', ' ').contains(search)));
+    lstBookFilter.refresh();
   }
 
   void searchWidget() {
     if(heightWidgetSearch.value == 0.0){
-      heightWidgetSearch.value = 100.0;
+      heightWidgetSearch.value = 50.0;
       FocusScope.of(Get.context!).requestFocus(focusNode);
     }else{
       heightWidgetSearch.value = 0.0;

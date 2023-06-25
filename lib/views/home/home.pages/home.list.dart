@@ -26,12 +26,12 @@ class HomeList extends GetView<HomeController> {
               ),visible: controller.heightWidgetSearch.value > 0.0,)),
           Obx(() => Expanded(
                   child: ListView.builder(
-                itemCount: controller.lstBook.length,
+                itemCount: controller.lstBookFilter.length,
                 itemBuilder: (buildContext, index) {
                   return itemBook(
                       index: index,
-                      length: controller.lstBook.length,
-                      book: controller.lstBook[index]);
+                      length: controller.lstBookFilter.length,
+                      book: controller.lstBookFilter[index]);
                 },
               )))
         ],

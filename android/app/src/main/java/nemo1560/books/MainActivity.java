@@ -1,4 +1,4 @@
-package nemo1560.kinhvanhoa;
+package nemo1560.books;
 
 import io.flutter.embedding.android.FlutterActivity;
 

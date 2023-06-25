@@ -36,12 +36,21 @@ class SearchComponent<T extends BaseController> extends StatelessWidget{
         borderRadius: BorderRadius.all(Radius.circular(10)),
         color: Colors.white
       ), duration: Duration(milliseconds: 200),
-      child: Column(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(child: TextComponent(controller: textEditingController, focusNode: controller.focusNode,notLock: true,border: true,function: (value){
             callBack.searchCallBack(value);
-          },))
+          },)),
+          SizedBox(
+            width: 40,
+            child: InkWell(
+              child: Icon(Icons.delete_forever_rounded,color: Colors.green,size: 30,),
+              onTap: (){
+                textEditingController.clear();
+              },
+            ),
+          )
         ],
       ),
     );

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 
 import 'info_controller.dart';
 
@@ -54,27 +55,27 @@ class Info extends GetView<InfoController> {
         child: Column(
           children: [
             Expanded(
-              flex: 3,
-              child: Card(
-                color: Colors.green,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                elevation: 7,
-                child: ExtendedImage.network(
-                controller.url,
-                fit: BoxFit.fill,
-                cache: true,
-                imageCacheName: controller.imageCache,
-                border: Border.all(color: Colors.transparent, width: 1.0),
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                enableMemoryCache: true,
-                clearMemoryCacheWhenDispose: true,
-                filterQuality: FilterQuality.high,
-                //cancelToken: cancellationToken,
-              ),
-            )),
+                flex: 3,
+                child: Card(
+                  color: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  elevation: 7,
+                  child: ExtendedImage.network(
+                    controller.url,
+                    fit: BoxFit.fill,
+                    cache: true,
+                    imageCacheName: controller.imageCache,
+                    border: Border.all(color: Colors.transparent, width: 1.0),
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    enableMemoryCache: true,
+                    clearMemoryCacheWhenDispose: true,
+                    filterQuality: FilterQuality.high,
+                    //cancelToken: cancellationToken,
+                  ),
+                )),
             SizedBox(
               height: 10,
             ),
@@ -97,6 +98,18 @@ class Info extends GetView<InfoController> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(20),
                           )),
+                      child: ScrollLoopAutoScroll(
+                        duration: Duration(seconds: 100),
+                        enableScrollInput: true,
+                        child: Padding(padding: EdgeInsets.all(5),
+                        child: Text(
+                          StringName.infoBook,
+                          softWrap: true,
+                          style: controller.defaultStyle(color: Colors.grey),
+                        )),
+                        scrollDirection: Axis.vertical,
+                        reverseScroll: false,
+                      ),
                     ),
                   ),
                   InkWell(
