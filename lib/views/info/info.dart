@@ -87,6 +87,7 @@ class Info extends GetView<InfoController> {
                     alignment: Alignment.center,
                     child: Container(
                       margin: EdgeInsets.all(5),
+                      padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                           color: Colors.yellow.shade100,
                           boxShadow: <BoxShadow>[
@@ -101,12 +102,11 @@ class Info extends GetView<InfoController> {
                       child: ScrollLoopAutoScroll(
                         duration: Duration(seconds: 100),
                         enableScrollInput: true,
-                        child: Padding(padding: EdgeInsets.all(5),
                         child: Text(
                           StringName.infoBook,
                           softWrap: true,
                           style: controller.defaultStyle(color: Colors.grey),
-                        )),
+                        ),
                         scrollDirection: Axis.vertical,
                         reverseScroll: false,
                       ),
