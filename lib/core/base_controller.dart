@@ -1,4 +1,5 @@
 import 'package:book/core/route_name.dart';
+import 'package:book/core/uitility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -14,9 +15,7 @@ class BaseController extends GetxController{
     Icons.history,
     Icons.info,
   ];
-
   RxDouble heightWidgetSearch = 0.0.obs;
-
   FocusNode focusNode = FocusNode();
 
   @override
@@ -181,5 +180,15 @@ class BaseController extends GetxController{
 
   void toastAlert({required String content}){
     GFToast.showToast(content, Get.context!,toastBorderRadius: 10.0,toastPosition: GFToastPosition.BOTTOM);
+  }
+  
+  void setLightTheme(){
+    if(Utility.isLightTheme.value){
+      Get.changeTheme(ThemeData.dark());
+      Utility.isLightTheme.value = false;
+    }else{
+      Get.changeTheme(ThemeData.light());
+      Utility.isLightTheme.value = true;
+    }
   }
 }

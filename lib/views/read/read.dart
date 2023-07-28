@@ -67,12 +67,12 @@ class Read extends GetWidget<ReadController> {
             child: Obx(() => PDFView(
               filePath: controller.book.path,
               enableSwipe: true,
-              swipeHorizontal: true,
+              swipeHorizontal: false,
               autoSpacing: false,
               pageFling: true,
               pageSnap: true,
               fitEachPage: true,
-              nightMode: controller.darkMode.value,
+              nightMode: Utility.isLightTheme.value ? false : true,
               defaultPage: controller.page.value,
               fitPolicy: FitPolicy.BOTH,
               preventLinkNavigation: false,
@@ -135,7 +135,7 @@ class Read extends GetWidget<ReadController> {
                           child: InkWell(child: Text(
                             '${controller.showPage.value}/${controller.showTotalPage.value}',
                             style: controller.customStyle(
-                                fontSize: 15, color: Colors.white),
+                                fontSize: 20, color: Colors.white),
                           ),onTap: (){
                             controller.toPage();
                           }),),
@@ -143,9 +143,9 @@ class Read extends GetWidget<ReadController> {
                   ),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Container(width: 40,height: 40, padding: EdgeInsets.only(right: 25),child: InkWell(
+                    child: Visibility(child: Container(width: 40,height: 40, padding: EdgeInsets.only(right: 25),child: InkWell(
                       child: Obx(() => Icon(
-                        controller.darkMode.value ? Icons.dark_mode : Icons.light_mode,
+                        controller.darkMode.value ? Icons.light_mode : Icons.dark_mode,
                         size: 20,
                         color: Colors.white,
                       )),
@@ -155,8 +155,8 @@ class Read extends GetWidget<ReadController> {
                         }
                         controller.setDarkMode();
                       },
-                    ),)
-                  )
+                    ),),visible: false,
+                  ))
                 ],
               ))
         ],

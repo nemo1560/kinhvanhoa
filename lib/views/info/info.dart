@@ -42,7 +42,7 @@ class Info extends GetView<InfoController> {
               ),
             ],
           ),
-          body: body(context),
+          body: Obx(() => body(context)),
         ),
         onWillPop: controller.backPressed);
   }
@@ -89,11 +89,11 @@ class Info extends GetView<InfoController> {
                       margin: EdgeInsets.all(5),
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                          color: Colors.yellow.shade100,
+                          color: Utility.isLightTheme.value ? Colors.yellow.shade100 : Colors.indigo.shade50,
                           boxShadow: <BoxShadow>[
                             BoxShadow(
                                 color: Colors.grey.shade400,
-                                blurRadius: 5.0,
+                                blurRadius: Utility.isLightTheme.value ? 5.0 : 0,
                                 offset: Offset(1.0, 1.5))
                           ],
                           borderRadius: BorderRadius.all(
@@ -105,7 +105,7 @@ class Info extends GetView<InfoController> {
                         child: Text(
                           StringName.infoBook,
                           softWrap: true,
-                          style: controller.defaultStyle(color: Colors.grey),
+                          style: controller.defaultStyle(color: Utility.isLightTheme.value ? Colors.grey : Colors.black),
                         ),
                         scrollDirection: Axis.vertical,
                         reverseScroll: false,

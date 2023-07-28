@@ -55,11 +55,11 @@ class HomeList extends GetView<HomeController> {
                 width: Utility.size.width,
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                    color: Colors.yellow.shade100,
+                    color: Utility.isLightTheme.value ? Colors.yellow.shade100 : Colors.indigo.shade50,
                     boxShadow: <BoxShadow>[
                       BoxShadow(
                           color: Colors.grey.shade400,
-                          blurRadius: 5.0,
+                          blurRadius: Utility.isLightTheme.value ? 5.0 : 0,
                           offset: Offset(1.0, 1.5))
                     ],
                     borderRadius: BorderRadius.all(Radius.circular(10))),

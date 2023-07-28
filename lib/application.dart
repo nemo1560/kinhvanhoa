@@ -10,6 +10,9 @@ class Application extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(primarySwatch: Colors.blue),
+      darkTheme: ThemeData.dark().copyWith(primaryColor: Colors.red),
+      themeMode: ThemeMode.light,
       builder: EasyLoading.init(),
       debugShowCheckedModeBanner: false,
       initialRoute: RouteName.welcome,
