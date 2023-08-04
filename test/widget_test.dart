@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: true,
       theme: ThemeData(
         primaryColor: Colors.black12,
-        accentColor: Colors.orange,
+        hintColor: Colors.indigo,
       ),
       home: Scaffold(
         appBar: AppBar(
