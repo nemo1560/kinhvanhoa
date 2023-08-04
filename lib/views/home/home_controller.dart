@@ -82,7 +82,7 @@ class HomeController extends BaseController
               path: books[index],
               assetsFile: books[index],
               iconId: 0xe0ef);
-          int page = bookMarkStorage.read('chapter_'+book.chapter.toString());
+          int? page = bookMarkStorage.read('chapter_'+book.chapter.toString());
           book.haveBookMark = book.getBookMark(page);
           lstBook.add(book);
         }catch(e){

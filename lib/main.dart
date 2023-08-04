@@ -1,4 +1,4 @@
-//@dart=2.11
+//@dart=2.12
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ Future<void> main() async {
     };
     runApp(Application());
   }, (error, stack) {
-    print('Error Catch: '+error+", "+stack.toString());
+    print('Error Catch: $error ${stack.toString()}');
     print(' ---------------- ');
   });
 
